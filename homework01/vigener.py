@@ -34,7 +34,8 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
             ciphertext += plaintext[i]
     return ciphertext
 
-def decrypt_vigenere(ciphertext, keyword):
+
+def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     """
     Decrypts a ciphertext using a Vigenere cipher.
     >>> decrypt_vigenere("PYTHON", "A")
@@ -44,7 +45,7 @@ def decrypt_vigenere(ciphertext, keyword):
     >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
     'ATTACKATDAWN'
     """
-    plaintext = ''
+    plaintext = []
     shift = []
     for i in range(len(keyword)):
         if keyword[i].isupper():
@@ -69,6 +70,3 @@ def decrypt_vigenere(ciphertext, keyword):
         else:
             plaintext += ciphertext[i]
     return plaintext
-
-
-
