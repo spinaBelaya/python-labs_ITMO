@@ -1,5 +1,6 @@
 import random
 
+
 def is_prime(n: int) -> bool:
     """
     >>> is_prime(2)
@@ -13,6 +14,7 @@ def is_prime(n: int) -> bool:
         return True
     else:
         return False
+
 
 def gcd(a: int, b: int) -> int:
     """
@@ -28,12 +30,14 @@ def gcd(a: int, b: int) -> int:
             b = b - a
     return a
 
+
 def egcd(a: int, b: int) -> int:
     if a == 0:
         return (b, 0, 1)
     else:
         g, x, y = egcd(b % a, a)
         return (g, y - (b // a) * x, x)
+
 
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
@@ -45,13 +49,13 @@ def multiplicative_inverse(e: int, phi: int) -> int:
         return (x % phi)
 
 
-def generate_keypair(p, q):
+def generate_keypair(p: int, q: int) -> tuple:
     if not (is_prime(p) and is_prime(q)):
         raise ValueError('Both numbers must be prime.')
     elif p == q:
         raise ValueError('p and q cannot be equal')
 
-    n = p*q
+    n = p * q
 
     phi = (p - 1)(q - 1)
 
@@ -70,7 +74,7 @@ def generate_keypair(p, q):
     return ((e, n), (d, n))
 
 
-def encrypt(pk, plaintext):
+def encrypt(pk: int, plaintext: str) -> list:
     # Unpack the key into it's components
     key, n = pk
     # Convert each letter in the plaintext to numbers based on
@@ -80,7 +84,7 @@ def encrypt(pk, plaintext):
     return cipher
 
 
-def decrypt(pk, ciphertext):
+def decrypt(pk: int, ciphertext: list) -> str:
     # Unpack the key into its components
     key, n = pk
     # Generate the plaintext based on the ciphertext and key using a^b mod m
@@ -103,4 +107,3 @@ if __name__ == '__main__':
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
-
