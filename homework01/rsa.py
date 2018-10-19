@@ -31,22 +31,30 @@ def gcd(a: int, b: int) -> int:
     return a
 
 
-def egcd(a: int, b: int) -> int:
-    if a == 0:
-        return (b, 0, 1)
-    else:
-        g, x, y = egcd(b % a, a)
-        return (g, y - (b // a) * x, x)
-
-
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
     >>> multiplicative_inverse(7, 40)
     23
     """
-    g, x, _ = egcd(e, phi)
-    if g == 1:
-        return (x % phi)
+    f = []
+    w = phi
+    while True:
+        mas = []
+        mas.append(phi // e)
+        mas.append(0)
+        mas.append(0)
+        f.append(mas)
+        if phi % e == 0:
+            break
+        c = phi % e
+        phi = e
+        e = c
+    f[len(f) - 1][2] = 1
+    for i in range(len(f) - 1, 0, -1):
+        f[i - 1][2] = f[i][1] - f[i][2] * f[i - 1][0]
+        f[i - 1][1] = f[i][2]
+    return (f[0][2] + w) % w
+
 
 
 def generate_keypair(p: int, q: int) -> tuple:
@@ -57,7 +65,7 @@ def generate_keypair(p: int, q: int) -> tuple:
 
     n = p * q
 
-    phi = (p - 1)(q - 1)
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
