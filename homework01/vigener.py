@@ -45,7 +45,7 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
     'ATTACKATDAWN'
     """
-    plaintext = []
+    plaintext = ''
     shift = []
     for i in range(len(keyword)):
         if keyword[i].isupper():
