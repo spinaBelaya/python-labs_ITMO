@@ -10,6 +10,15 @@ def encrypt_caesar(plaintext: str) -> str:
     >>> encrypt_caesar("")
     ''
     """
+    ciphertext = ''
+    for i in range(len(plaintext)):
+        if plaintext[i].isalpha():
+            if chr((ord(plaintext[i]) + 3)).isalpha()==False :
+                ciphertext += chr(ord(plaintext[i]) - 23)
+            else:
+                ciphertext += chr(ord(plaintext[i]) + 3)
+        else:
+            ciphertext += plaintext[i]
     return ciphertext
 
 def decrypt_caesar(ciphertext):
@@ -24,5 +33,14 @@ def decrypt_caesar(ciphertext):
     >>> decrypt_caesar("")
     ''
     """
+    plaintext = ''
+    for i in range(len(ciphertext)):
+        if ciphertext[i].isalpha():
+            if chr((ord(ciphertext[i]) - 3)).isalpha()==False:
+                plaintext += chr(ord(ciphertext[i]) + 23)
+            else:
+                plaintext += chr(ord(ciphertext[i]) - 3)
+        else:
+            plaintext += ciphertext[i]
     return plaintext
 
