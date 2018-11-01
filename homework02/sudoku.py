@@ -48,7 +48,7 @@ def get_row(values: list, pos: tuple) -> list:
     return values[pos[0]]
 
 
-def get_col(values: list, pos: list) -> list:
+def get_col(values: list, pos: tuple) -> list:
     """ Возвращает все значения для номера столбца, указанного в pos
 
     >>> get_col([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']], (0, 0))
@@ -154,14 +154,11 @@ def check_solution(solution: list) -> bool:
             return False
 
         for row in (0, 3, 6):
-        	for col in (0, 3, 6):
-        		if set(get_block(solution, (row, col))) != set('123456789'):
-        			return False
-                
-            
-        
+            for col in (0, 3, 6):
+                if set(get_block(solution, (row, col))) != set('123456789'):
+                    return False
 
-        return True
+    return True
 
 
 def generate_sudoku(N: int) -> list:
