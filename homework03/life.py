@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import random
-import copy
+from copy import deepcopy
 from typing import List
 
 
@@ -102,7 +102,7 @@ class GameOfLife:
         """
         Обновление состояния клеток
         """
-        new_clist = copy.deepcopy(self.clist)
+        new_clist = deepcopy(self.clist)
         for i in range(self.cell_height):
             for j in range(self.cell_width):
                 if sum(self.get_neighbours((i, j))) == 2:
