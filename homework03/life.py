@@ -35,9 +35,6 @@ class GameOfLife:
 
     def run(self) -> None:
         pygame.init()
-        pygame.mixer.pre_init(44100, 16, 2, 4096)
-        pygame.mixer.music.load("gimn.ogg")
-        pygame.mixer.music.play(-1)
         clock = pygame.time.Clock()
         self.clist = self.cell_list()
         pygame.display.set_caption('Game of Life')

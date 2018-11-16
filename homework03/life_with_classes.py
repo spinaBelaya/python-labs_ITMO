@@ -3,6 +3,8 @@ from pygame.locals import *
 import random
 from copy import deepcopy
 from typing import Any
+from typing import List
+
 
 class Cell:
 
@@ -43,7 +45,7 @@ class CellList:
         self.grid = new_grid
         return self
 
-    def get_neighbours(self, cell: Cell) -> list:
+    def get_neighbours(self, cell: Cell) -> List[Cell]:
         neighbours = []
         x, y = cell.col, cell.row
         for i in range(y-1, y+2):
@@ -120,9 +122,6 @@ class GameOfLife:
 
     def run(self) -> None:
         pygame.init()
-        pygame.mixer.pre_init(44100, 16, 2, 4096)
-        pygame.mixer.music.load("gimn.ogg")
-        pygame.mixer.music.play(-1)
         clock = pygame.time.Clock()
         pygame.display.set_caption('Game of Life')
         self.screen.fill(pygame.Color('white'))
