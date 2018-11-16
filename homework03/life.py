@@ -2,12 +2,12 @@ import pygame
 from pygame.locals import *
 import random
 import copy
+from typing import List
 
 
 class GameOfLife:
 
-
-    def __init__(self, width=400, height=400, cell_size=20, speed=10):
+    def __init__(self, width=400, height=400, cell_size=20, speed=10) -> None:
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -24,15 +24,20 @@ class GameOfLife:
         # Скорость протекания игры
         self.speed = speed
 
-    def draw_grid(self):
+    def draw_grid(self) -> None:
         # http://www.pygame.org/docs/ref/draw.html#pygame.draw.line
         for x in range(0, self.width, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'), (x, 0), (x, self.height))
+            pygame.draw.line(self.screen, pygame.Color(
+                'black'), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'), (0, y), (self.width, y))
+            pygame.draw.line(self.screen, pygame.Color(
+                'black'), (0, y), (self.width, y))
 
-    def run(self):
+    def run(self) -> None:
         pygame.init()
+        pygame.mixer.pre_init(44100, 16, 2, 4096)
+        pygame.mixer.music.load("gimn.ogg")
+        pygame.mixer.music.play(-1)
         clock = pygame.time.Clock()
         self.clist = self.cell_list()
         pygame.display.set_caption('Game of Life')
@@ -49,7 +54,7 @@ class GameOfLife:
             clock.tick(self.speed)
         pygame.quit()
 
-    def cell_list(self, randomize=True):
+    def cell_list(self, randomize=True) -> List[list]:
         """
         Создание списка клеток.
 
@@ -67,7 +72,7 @@ class GameOfLife:
                     self.clist[i][j] = random.randint(0, 1)
         return self.clist
 
-    def draw_cell_list(self, clist):
+    def draw_cell_list(self, clist) -> None:
         """Отображение списка клеток 'rects' с закрашиванием их в 
         соответствующе цвета
         """
@@ -77,12 +82,13 @@ class GameOfLife:
                     color = pygame.Color('yellow')
                 else:
                     color = pygame.Color('blue')
-                pygame.draw.rect(self.screen, color, (j * self.cell_width + 1, i * self.cell_height + 1, self.cell_size -1, self.cell_size -1))
+                pygame.draw.rect(self.screen, color, (j * self.cell_width + 1, i *
+                                                      self.cell_height + 1, self.cell_size - 1, self.cell_size - 1))
 
-    def get_neighbours(self, cell):
-    	"""
+    def get_neighbours(self, cell: tuple) -> list:
+        """
         Вернуть список соседних клеток для клетки cell.
-    
+
         Соседними считаются клетки по горизонтали,
         вертикали и диагоналям, то есть во всех
         направлениях.
@@ -95,7 +101,7 @@ class GameOfLife:
                     neighbours.append(self.clist[i][j])
         return neighbours
 
-    def update_cell_list(self, cell_list):
+    def update_cell_list(self, cell_list: List[list]) -> List[list]:
         """
         Обновление состояния клеток
         """
