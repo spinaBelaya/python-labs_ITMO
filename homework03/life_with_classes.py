@@ -139,7 +139,7 @@ class GameOfLife:
             clock.tick(self.speed)
         pygame.quit()
 
-    def draw_cell_list(self, clist) -> None:
+    def draw_cell_list(self, clist: CellList) -> None:
         for cell in clist:
 
             color_cell = pygame.Color('blue')
